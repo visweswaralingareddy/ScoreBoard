@@ -95,8 +95,8 @@ public class ScoreBoardTests {
         Match match3 = new Match(new Team("Sweden",true),new Team("Poland",false),3,3,false);
         List<Match> expectedMatchSummary = new ArrayList<>();
         expectedMatchSummary.add(match3);
-        expectedMatchSummary.add(match1);
         expectedMatchSummary.add(match2);
+        expectedMatchSummary.add(match1);
 
         sbo.startGame("England","Netherlands");
         sbo.updateScoreBoard("England",6,"Netherlands",4);

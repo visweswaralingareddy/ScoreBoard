@@ -12,11 +12,9 @@ public class ScoreBoardOperations {
 
             scoreBoard.put(Utilities.getKey(home,away),newMatch);
             summary.add(newMatch);
-
         }else{
             throw new Exception("Either of the parameters should not be null");
         }
-
         return scoreBoard;
     }
 
@@ -47,8 +45,7 @@ public class ScoreBoardOperations {
             String key = Utilities.getKey(homeTeam,awayTeam);
             match = scoreBoard.get(key);
             if(match != null){
-                match.setHomeTeamScore(homeTeamScore);
-                match.setAwayTeamScore(awayTeamScore);
+
                 //update the score in summary
                 for(Match m : summary){
                     if(m.equals(match)){
@@ -56,6 +53,8 @@ public class ScoreBoardOperations {
                         m.setAwayTeamScore(awayTeamScore);
                     }
                 }
+                match.setHomeTeamScore(homeTeamScore);
+                match.setAwayTeamScore(awayTeamScore);
                 //update the score in score board
                 scoreBoard.replace(key,match);
             }else {
@@ -69,7 +68,7 @@ public class ScoreBoardOperations {
 
     public List<Match> getSummary(){
         List<Match> orderedMatches = new ArrayList<>();
-        List<Match> matchesWithDifferentScores = new LinkedList<>();
+        List<Match> matchesWithDifferentScores = new ArrayList<>();
         for(Match match : summary){
             if(match.getHomeTeamScore()==match.getAwayTeamScore()){
                 orderedMatches.add(match);
@@ -77,7 +76,10 @@ public class ScoreBoardOperations {
                 matchesWithDifferentScores.add(match);
             }
         }
-        orderedMatches.addAll(matchesWithDifferentScores);
+        int sizeOfMatchesWithDifferentScores = matchesWithDifferentScores.size();
+        for(int i=sizeOfMatchesWithDifferentScores;i>0;i--){
+            orderedMatches.add(matchesWithDifferentScores.get(i-1));
+        }
         return orderedMatches;
     }
 }
